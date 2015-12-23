@@ -35,7 +35,7 @@
 
     ```html
     <div id="gaugeContainer">
-        <h1>Symbol?</h1>
+        <span>Symbol</span>
     </div>
     ```
 
@@ -72,13 +72,53 @@
                     Width: 150
                 };
     	    },
-    	    init: function() {}
+    	    init: init
         };
+        
+        function init() {
+        }
+        
         CS.symbolCatalog.register(defintion);
     })(window.Coresight);
     ```
 
 1. Retry again in [PI Coreisght][1] by adding the new symbol. The symbol can now be selected, moved, and is completely integrated into undo stack.
+1. Now that the infrastructure is in place, it is time to have the symbol do something. For this we will have to expand out the `init` function. We will add a parameter to the function, `scope` and a function inside the function to handle when the symbol receives new data. Last we will add a return to the function, to let the PI Coresight infrastructure know how to communicate with the symbol.
+
+    ```javascript
+    function init(scope) {
+        function onUpdate(data) {
+        }
+        return { dateUpdate: onUpdate };
+    }
+    ```
+
+1. The code above tells the PI Coresight infrastructure to call the `onUpdate` function every time a data update occurs. We now need to do something with the data provided to our `onUpdate` function.
+1. Using the code below, we add two variables to our scope, `value` and `indicator`. Adding these variables to the scope will make them available in the presentation HTML.
+
+    ```javascript
+    function init(scope) {
+        function onUpdate(data) {
+            if(data) {
+                scope.value = data.Value;
+                scope.indicator = data.Indicator;
+            }
+        }
+        return { dataUpdate: onUpdate };
+    }
+    ```
+
+1. Now to update the presentation HTML file to show these values.
+
+    ```html
+    <div id="gaugeContainer">
+        <span>Symbol</span>
+        <span>Value: {{value}}</span>
+        <span>Indicator: {{indicator}}</span>
+    </div>
+    ```
+
+1. Retry again in [PI Coreisght][1] by adding the new symbol. 
 
 (**TODO update URL below**) 
 
