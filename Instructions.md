@@ -147,7 +147,8 @@
         },
         configOptions: function (symbol) {
             return [{
-                title: 'Format Symbol'
+                title: 'Format Symbol',
+                mode: 'format'
             }];
         },
         init: init
@@ -165,8 +166,8 @@
     	        DataShape: 'Gauge',
     	        Height: 150,
                 Width: 150,
-                BackgroundColor: 'oragne',
-                TextColor: 'black'
+                BackgroundColor: 'rgb(255,0,0)',
+                TextColor: 'rgb(0,255,0)'
             };
         },
         configOptions: function (symbol) {
@@ -202,6 +203,56 @@
         <div>{{time}}</div>
     </div>
     ```
+
+1. The last thing we want to do with our shape is to turn on or off individual parts, such as the label and time. To do this, we will first update the `getDefaultConfig` function to contain the booleans for showing and hiding.
+
+    ```javascript
+    getDefaultConfig: function() {
+	    return {
+	        DataShape: 'Gauge',
+	        Height: 150,
+            Width: 150,
+            BackgroundColor: 'rgb(255,0,0)',
+            TextColor: 'rgb(0,255,0)',
+            ShowLabel: true,
+            ShowTime: false
+        };
+    },
+    ```
+
+1. Next we will update the presentation to honor these settings.
+
+     ```html
+    <div id="gaugeContainer" ng-style="{background: config.BackgroundColor, color: config.TextColor}">
+        <div ng-show="config.ShowLabel">{{label}}</div>
+        <div>{{value}}</div>
+        <div ng-show="config.ShowTime">{{time}}</div>
+    </div>
+    ```
+
+1. Finally, we will update the configuration to support these options.
+
+    ```html
+    <div class="c-side-pane t-toolbar">
+        <span style="color:#fff; margin-left:15px">Text Color</span>
+    </div>
+    <format-color-picker id="textColor" property="TextColor" config="config"></format-color-picker>
+    <div class="c-side-pane t-toolbar">
+        <span style="color:#fff; margin-left:15px">Background Color</span>
+    </div>
+    <format-color-picker id="backgroundColor" property="BackgroundColor" config="config"></format-color-picker>
+    
+    <div class="c-side-pane t-toolbar">
+        <span style="color:#fff; margin-left:15px">Show Options</span>
+    </div>
+    <div class="c-config-content">Show Label:
+        <input type="checkbox" ng-model="config.ShowLabel">
+    </div>
+    <div class="c-config-content">Show Time:
+        <input type="checkbox" ng-model="config.ShowTime">
+    </div>
+    ```
+
 
 (**TODO update URL below**) 
 
