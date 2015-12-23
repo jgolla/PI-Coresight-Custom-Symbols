@@ -30,8 +30,16 @@
     })(window.Coresight);
     ```
 
-1. Launch [PI Coreisght](https://www.osisoft.com) and see that there is now a new icon on the symbol selector menu, right above the search pane. **TODO add screen shot** At this point the symbol will not do anything.
-2. Next, let's begin filling in some details about the type of data will be using.
+1. Launch [PI Coreisght](https://www.osisoft.com) (**TODO update URL**) and see that there is now a new icon on the symbol selector menu, right above the search pane. (**TODO add screen shot**) At this point the symbol will not do anything.
+1. Before going any further with implementation, let's get the initial presentation layer done.
+
+    ```html
+    <div id="gaugeContainer">
+        <h1>Symbol?</h1>
+    </div>
+    ```
+
+1. Next, let's begin filling in some details about the type of data will be using.
 
     ```javascript
     (function (CS) {
@@ -47,3 +55,5 @@
         CS.symbolCatalog.register(defintion);
     })(window.Coresight);
     ```
+
+1. 
