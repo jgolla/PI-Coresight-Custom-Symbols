@@ -10,6 +10,7 @@
     ```
     
 1. Begin by creating the symbol definition object that will be used to register the symbol with PI Coresight.
+
     ```javascript
     (function (CS) {
         'use strict';
@@ -18,7 +19,9 @@
         CS.symbolCatalog.register(defintion);
     })(window.Coresight);
     ```
+
 1. Let's start by building out the required parts of the new symbol.
+
     ```javascript
     (function (CS) {
         'use strict';
