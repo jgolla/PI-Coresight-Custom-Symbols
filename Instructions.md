@@ -193,7 +193,7 @@
     <format-color-picker id="backgroundColor" property="BackgroundColor" config="config"></format-color-picker>
     ```
 
-1. Now by lounching [PI Coresight][1], you will see you can right click on the symbol to configure it. When the configuration pane opens, the two color pickers defined in the config HTML are listed, but they have no effect.
+1. Now by launching [PI Coresight][1], you will see you can right click on the symbol to configure it. When the configuration pane opens, the two color pickers defined in the config HTML are listed, but they have no effect.
 1. To hook up the color pickers to the presentation, we must modify the presentation layer to use those variables.
 
     ```html
