@@ -16,3 +16,14 @@
     CS.symbolCatalog.register(defintion);
 })(window.Coresight);
 ```
+4. Let's start by building out the required parts of the new symbol.
+```javascript
+(function (CS) {
+    'use strict';
+    var defintion = {
+        typeName: 'liquidgauge'
+    };
+    CS.symbolCatalog.register(defintion);
+})(window.Coresight);
+
+```
