@@ -171,7 +171,8 @@
         },
         configOptions: function (symbol) {
             return [{
-                title: 'Format Symbol'
+                title: 'Format Symbol',
+                mode: 'format'
             }];
         },
         init: init
@@ -184,11 +185,22 @@
     <div class="c-side-pane t-toolbar">
         <span style="color:#fff; margin-left:15px">Text Color</span>
     </div>
-    <format-color-picker property="TextColor" config="config"></format-color-picker>
+    <format-color-picker id="textColor" property="TextColor" config="config"></format-color-picker>
     <div class="c-side-pane t-toolbar">
         <span style="color:#fff; margin-left:15px">Background Color</span>
     </div>
-    <format-color-picker property="BackgroundColor" config="config"></format-color-picker>
+    <format-color-picker id="backgroundColor" property="BackgroundColor" config="config"></format-color-picker>
+    ```
+
+1. Now by lounching [PI Coresight][1], you will see you can right click on the symbol to configure it. When the configuration pane opens, the two color pickers defined in the config HTML are listed, but they have no effect.
+1. To hook up the color pickers to the presentation, we must modify the presentation layer to use those variables.
+
+    ```html
+    <div id="gaugeContainer" ng-style="{background: config.BackgroundColor, color: config.TextColor}">
+        <div>{{label}}</div>
+        <div>{{value}}</div>
+        <div>{{time}}</div>
+    </div>
     ```
 
 (**TODO update URL below**) 
