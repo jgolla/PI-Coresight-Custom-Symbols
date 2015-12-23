@@ -30,12 +30,12 @@
     })(window.Coresight);
     ```
 
-1. Launch [PI Coreisght][1] and see that there is now a new icon on the symbol selector menu, right above the search pane. (**TODO add screen shot**) At this point the symbol will not do anything.
+1. Launch [PI Coresight][1] and see that there is now a new icon on the symbol selector menu, right above the search pane. (**TODO add screen shot**) At this point the symbol will not do anything.
 1. Before going any further with implementation, let's get the initial presentation layer done. Let's create an HTML file in the same directory as our Javascript file and name it `sym-liquidgauge-template.html`. Add the following to the HTML file.
 
     ```html
     <div id="gaugeContainer">
-        <span>Symbol</span>
+        <div>Symbol</div>
     </div>
     ```
 
@@ -56,7 +56,7 @@
     })(window.Coresight);
     ```
 
-1. Again, launch [PI Coreisght][1] and this time perform a search for sinusoid (**TODO need data item**)
+1. Again, launch [PI Coresight][1] and this time perform a search for sinusoid (**TODO need data item**)
 1. Select the liquidgauge from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having a default size.
 1. To fix the sizing issue, update the `getDefaultConfig` function's return value to return both `Height` and `Width`. We also need to add an initialization function to the definition object.
 
@@ -82,7 +82,7 @@
     })(window.Coresight);
     ```
 
-1. Retry again in [PI Coreisght][1] by adding the new symbol. The symbol can now be selected, moved, and is completely integrated into undo stack.
+1. Retry again in [PI Coresight][1] by adding the new symbol. The symbol can now be selected, moved, and is completely integrated into undo stack.
 1. Now that the infrastructure is in place, it is time to have the symbol do something. For this we will have to expand out the `init` function. We will add a parameter to the function, `scope` and a function inside the function to handle when the symbol receives new data. Last we will add a return to the function, to let the PI Coresight infrastructure know how to communicate with the symbol.
 
     ```javascript
@@ -94,14 +94,17 @@
     ```
 
 1. The code above tells the PI Coresight infrastructure to call the `onUpdate` function every time a data update occurs. We now need to do something with the data provided to our `onUpdate` function.
-1. Using the code below, we add two variables to our scope, `value` and `indicator`. Adding these variables to the scope will make them available in the presentation HTML.
+1. Using the code below, we add some variables to our scope, `value`, `time`, and `label`. Adding these variables to the scope will make them available in the presentation HTML.
 
     ```javascript
     function init(scope) {
         function onUpdate(data) {
             if(data) {
                 scope.value = data.Value;
-                scope.indicator = data.Indicator;
+                scope.time = data.Time;
+                if(data.Label) {
+                    scope.label = data.Label;
+                }
             }
         }
         return { dataUpdate: onUpdate };
@@ -112,13 +115,81 @@
 
     ```html
     <div id="gaugeContainer">
-        <span>Symbol</span>
-        <span>Value: {{value}}</span>
-        <span>Indicator: {{indicator}}</span>
+        <div>Label: {{label}}</div>
+        <div>Value: {{value}}</div>
+        <div>Time: {{time}}</div>
     </div>
     ```
 
-1. Retry again in [PI Coreisght][1] by adding the new symbol. 
+1. Retry again in [PI Coresight][1] by adding the new symbol. 
+1. Now that the symbol is starting to come together, it is time to make it look a little nicer by adding some stylinging to the container div and removing the labels added above.
+
+    ```html
+    <div id="gaugeContainer" style="background: orange; color: black">
+        <div>{{label}}</div>
+        <div>{{value}}</div>
+        <div>{{time}}</div>
+    </div>
+    ```
+
+1. While this is very nice, it would be much better if the user of the symbol could configure the colors shown here. To do this, we need to add symbol configuration options to the symbol definition. First we will add the context menu options to the symbol.
+
+    ```javascript
+    var defintion = {
+        typeName: 'liquidgauge',
+        datasourceBehavior: CS.DatasourceBehaviors.Single,
+        getDefaultConfig: function() {
+    	    return {
+    	        DataShape: 'Gauge',
+    	        Height: 150,
+                Width: 150
+            };
+        },
+        configOptions: function (symbol) {
+            return [{
+                title: 'Format Symbol'
+            }];
+        },
+        init: init
+    };
+    ```
+
+1. Next we need to add the default values for the options we wish to configure. This is done in `getDefaultConfig`.
+
+    ```javascript
+    var defintion = {
+        typeName: 'liquidgauge',
+        datasourceBehavior: CS.DatasourceBehaviors.Single,
+        getDefaultConfig: function() {
+    	    return {
+    	        DataShape: 'Gauge',
+    	        Height: 150,
+                Width: 150,
+                BackgroundColor: 'oragne',
+                TextColor: 'black'
+            };
+        },
+        configOptions: function (symbol) {
+            return [{
+                title: 'Format Symbol'
+            }];
+        },
+        init: init
+    };
+    ```
+
+1. Now that we have it defined in the implementation, we need to create the configuration HTML file. Create a file named `sym-liquidgauge-config.html` in the same directory as the implementation and presentation files.
+
+    ```html
+    <div class="c-side-pane t-toolbar">
+        <span style="color:#fff; margin-left:15px">Text Color</span>
+    </div>
+    <format-color-picker property="TextColor" config="config"></format-color-picker>
+    <div class="c-side-pane t-toolbar">
+        <span style="color:#fff; margin-left:15px">Background Color</span>
+    </div>
+    <format-color-picker property="BackgroundColor" config="config"></format-color-picker>
+    ```
 
 (**TODO update URL below**) 
 
