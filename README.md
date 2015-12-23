@@ -1,3 +1,3 @@
 # Coresight-Lab
-
-[Instructions](Instructions.md)
+## Creating new symbols
+* [Simple Value Symbol Instructions](SimpleValueSymbol.md)
