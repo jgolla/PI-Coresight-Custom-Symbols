@@ -1,6 +1,7 @@
 # New Symbol Creation
+## Simple Value Symbol
 
-1. Create a new file called liquidgauge.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  
+1. Create a new file called simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  
 
 1. Add the following code to the file, this will initialize the structure used for creating custom symbols.
 
@@ -23,7 +24,7 @@
     ```javascript
     (function (CS) {
         var defintion = {
-            typeName: 'liquidgauge',
+            typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single
         };
         CS.symbolCatalog.register(defintion);
@@ -31,11 +32,11 @@
     ```
 
 1. Launch [PI Coresight][1] and see that there is now a new icon on the symbol selector menu, right above the search pane. (**TODO add screen shot**) At this point the symbol will not do anything.
-1. Before going any further with implementation, let's get the initial presentation layer done. Let's create an HTML file in the same directory as our Javascript file and name it `sym-liquidgauge-template.html`. Add the following to the HTML file.
+1. Before going any further with implementation, let's get the initial presentation layer done. Let's create an HTML file in the same directory as our Javascript file and name it `sym-simplevalue-template.html`. Add the following to the HTML file.
 
     ```html
-    <div id="gaugeContainer">
-        <div>Symbol</div>
+    <div>
+        <div>Simple Value</div>
     </div>
     ```
 
@@ -44,11 +45,11 @@
     ```javascript
     (function (CS) {
         var defintion = {
-            typeName: 'liquidgauge',
+            typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single,
             getDefaultConfig: function() {
     		    return {
-    		        DataShape: 'Gauge'
+    		        DataShape: 'Value'
                 };
     	    }
         };
@@ -57,17 +58,17 @@
     ```
 
 1. Again, launch [PI Coresight][1] and this time perform a search for sinusoid (**TODO need data item**)
-1. Select the liquidgauge from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having a default size.
+1. Select the simplevalue from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having a default size.
 1. To fix the sizing issue, update the `getDefaultConfig` function's return value to return both `Height` and `Width`. We also need to add an initialization function to the definition object.
 
     ```javascript
     (function (CS) {
         var defintion = {
-            typeName: 'liquidgauge',
+            typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single,
             getDefaultConfig: function() {
     		    return {
-    		        DataShape: 'Gauge',
+    		        DataShape: 'Value',
     		        Height: 150,
                     Width: 150
                 };
@@ -114,7 +115,7 @@
 1. Now to update the presentation HTML file to show these values.
 
     ```html
-    <div id="gaugeContainer">
+    <div>
         <div>Label: {{label}}</div>
         <div>Value: {{value}}</div>
         <div>Time: {{time}}</div>
@@ -125,7 +126,7 @@
 1. Now that the symbol is starting to come together, it is time to make it look a little nicer by adding some stylinging to the container div and removing the labels added above.
 
     ```html
-    <div id="gaugeContainer" style="background: orange; color: black">
+    <div style="background: orange; color: black">
         <div>{{label}}</div>
         <div>{{value}}</div>
         <div>{{time}}</div>
@@ -136,11 +137,11 @@
 
     ```javascript
     var defintion = {
-        typeName: 'liquidgauge',
+        typeName: 'simplevalue',
         datasourceBehavior: CS.DatasourceBehaviors.Single,
         getDefaultConfig: function() {
     	    return {
-    	        DataShape: 'Gauge',
+    	        DataShape: 'Value',
     	        Height: 150,
                 Width: 150
             };
@@ -159,11 +160,11 @@
 
     ```javascript
     var defintion = {
-        typeName: 'liquidgauge',
+        typeName: 'simplevalue',
         datasourceBehavior: CS.DatasourceBehaviors.Single,
         getDefaultConfig: function() {
     	    return {
-    	        DataShape: 'Gauge',
+    	        DataShape: 'Value',
     	        Height: 150,
                 Width: 150,
                 BackgroundColor: 'rgb(255,0,0)',
@@ -180,7 +181,7 @@
     };
     ```
 
-1. Now that we have it defined in the implementation, we need to create the configuration HTML file. Create a file named `sym-liquidgauge-config.html` in the same directory as the implementation and presentation files.
+1. Now that we have it defined in the implementation, we need to create the configuration HTML file. Create a file named `sym-simplevalue-config.html` in the same directory as the implementation and presentation files.
 
     ```html
     <div class="c-side-pane t-toolbar">
@@ -209,7 +210,7 @@
     ```javascript
     getDefaultConfig: function() {
 	    return {
-	        DataShape: 'Gauge',
+	        DataShape: 'Value',
 	        Height: 150,
             Width: 150,
             BackgroundColor: 'rgb(255,0,0)',
@@ -223,7 +224,7 @@
 1. Next we will update the presentation to honor these settings.
 
      ```html
-    <div id="gaugeContainer" ng-style="{background: config.BackgroundColor, color: config.TextColor}">
+    <div ng-style="{background: config.BackgroundColor, color: config.TextColor}">
         <div ng-show="config.ShowLabel">{{label}}</div>
         <div>{{value}}</div>
         <div ng-show="config.ShowTime">{{time}}</div>
