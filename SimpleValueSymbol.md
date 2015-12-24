@@ -1,7 +1,7 @@
 # New Symbol Creation
 ## Simple Value Symbol
 
-1. Create a new file called sym-simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  
+1. Create a new file called sym-simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  g
 
 1. Add the following code to the file, this will initialize the structure used for creating custom symbols.
 
@@ -198,7 +198,7 @@
 1. To hook up the color pickers to the presentation, we must modify the presentation layer to use those variables.
 
     ```html
-    <div id="gaugeContainer" ng-style="{background: config.BackgroundColor, color: config.TextColor}">
+    <div ng-style="{background: config.BackgroundColor, color: config.TextColor}">
         <div>{{label}}</div>
         <div>{{value}}</div>
         <div>{{time}}</div>
