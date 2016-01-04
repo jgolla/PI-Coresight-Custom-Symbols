@@ -90,7 +90,7 @@
     function init(scope) {
         function onUpdate(data) {
         }
-        return { dateUpdate: onUpdate };
+        return { dataUpdate: onUpdate };
     }
     ```
 
@@ -146,7 +146,7 @@
                 Width: 150
             };
         },
-        configOptions: function (symbol) {
+        configOptions: function () {
             return [{
                 title: 'Format Symbol',
                 mode: 'format'
@@ -171,7 +171,7 @@
                 TextColor: 'rgb(0,255,0)'
             };
         },
-        configOptions: function (symbol) {
+        configOptions: function () {
             return [{
                 title: 'Format Symbol',
                 mode: 'format'
