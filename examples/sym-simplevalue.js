@@ -13,7 +13,7 @@
 		        ShowTime: false
 		    };
 		},
-	    configOptions: function (symbol) {
+	    configOptions: function () {
 	        return [{
 	            title: 'Format Symbol',
 	            mode: 'format'
