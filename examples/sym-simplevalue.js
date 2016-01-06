@@ -13,11 +13,25 @@
 		        ShowTime: false
 		    };
 		},
-	    configOptions: function () {
-	        return [{
+		StateVariables: [ 'Fill', 'Blink' ],
+	    configOptions: function (symbol) {
+	    	var options = [{
 	            title: 'Format Symbol',
-	            mode: 'format'
+	            mode: 'format' 
 	        }];
+
+	        var multistateOption = {};
+	        if (symbol.MSDataSources && symbol.MSDataSources.length > 0) {
+	        	multistateOption.title = 'Configure Multistate';
+	            multistateOption.mode = 'multistate';
+	        } else {
+	        	multistateOption.title = 'Initialize Multistate';
+	            multistateOption.mode = 'initialize-multistate';
+	            multistateOption.datasource = symbol.DataSources[0];
+	        }
+
+	        options.push(multistateOption);
+	        return options;
 	    },
 	    init: init
 	};
