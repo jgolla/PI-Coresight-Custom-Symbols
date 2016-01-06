@@ -1,5 +1,4 @@
-# New Symbol Creation
-## Simple Value Symbol
+# Simple Value Symbol
 
 1. Create a new file called sym-simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  g
 
@@ -280,7 +279,7 @@
     };
     ```
 
-1. We also need to let the symbol know that it can configure it's multistate, via a context menu. This is dont by updating the `configOptions` of the symbol. (**TODO update config options above to match below**)
+1. We also need to let the symbol know that it can configure it's multistate, via a context menu. This is dont by updating the `configOptions` of the symbol.
 
     ```javascript
     configOptions: function (symbol) {
