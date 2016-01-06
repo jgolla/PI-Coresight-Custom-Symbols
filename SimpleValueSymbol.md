@@ -1,6 +1,6 @@
 # Simple Value Symbol
 
-1. Create a new file called sym-simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.  g
+1. Create a new file called sym-simplevalue.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.
 
 1. Add the following code to the file, this will initialize the structure used for creating custom symbols.
 
