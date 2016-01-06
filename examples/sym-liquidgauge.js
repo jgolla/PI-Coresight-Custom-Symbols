@@ -7,16 +7,16 @@
     	getDefaultConfig: function() {
     		return {
     		    DataShape: 'Gauge',
-                Height: 150,
-                Width: 150
-            };
+    		    Height: 150,
+    		    Width: 150
+    		};
     	},
     	init: init
     };
 
    function init(scope, elem) {
 
-   		scope.scale = 1;
+   	scope.scale = 1;
 
     	var config = liquidFillGaugeDefaultSettings();
 
@@ -26,13 +26,13 @@
         var gauge = loadLiquidFillGauge(id, 0, config);
 
     	function dataUpdate(data) {
-			if (data) {
+    	    if (data) {
                 gauge.update(data.Indicator);
             }
     	}
 
     	function resize(width, height) {
-			scope.scale = Math.min(width / 150, height / 150);
+    	    scope.scale = Math.min(width / 150, height / 150);
             d3.select("#" + id).selectAll("*").remove();
             gauge = loadLiquidFillGauge(id, 0, config);
     	}
