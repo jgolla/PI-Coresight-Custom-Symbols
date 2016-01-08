@@ -268,7 +268,7 @@
                 TextColor: 'rgb(0,255,0)'
             };
         },
-        StateVariables: [ 'Fill', 'Blink' ],
+        StateVariables: [ 'MultistateColor' ],
         configOptions: function () {
             return [{
                 title: 'Format Symbol',
@@ -279,35 +279,25 @@
     };
     ```
 
-1. We also need to let the symbol know that it can configure it's multistate, via a context menu. This is dont by updating the `configOptions` of the symbol.
+1. We also need to let the symbol know that it can configure it's multistate, via a context menu. This is done by updating the `configOptions` of the symbol.
 
     ```javascript
-    configOptions: function (symbol) {
-    	var options = [{
+    configOptions: function () {
+        return [{
             title: 'Format Symbol',
-            mode: 'format' 
+            mode: 'format'
+        }, {
+            title: 'Configure Multistate',
+            mode: 'multistate'
         }];
-
-        var multistateOption = {};
-        if (symbol.MSDataSources && symbol.MSDataSources.length > 0) {
-        	multistateOption.title = 'Configure Multistate';
-            multistateOption.mode = 'multistate';
-        } else {
-        	multistateOption.title = 'Initialize Multistate';
-            multistateOption.mode = 'initialize-multistate';
-            multistateOption.datasource = symbol.DataSources[0];
-        }
-
-        options.push(multistateOption);
-        return options;
     },
     ```
 
-1. Now by launching [PI Coresight][1], you will see the first time you right click on the symbol, you get a context menu with the option to initialize the multistate. After selecting this option, the context menu will read configure multistate. 
-1. Now it is time to make the multistate affect the symbol. We will have the multistate control the color of the text displayed. To do this, we will edit the symbol's template HTML, `sym-simplevalue-template.html`.
+1. Now by launching [PI Coresight][1], you will see when right click on the symbol, you get a context menu with the option to configure the multistate. After selecting this option, the multistate configuration pane will open and you can drag a data item to set as the multistate. 
+1. Now it is time to make the multistate affect the symbol. We will have the multistate control the color of the text displayed. To do this, we will edit the symbol's template HTML, `sym-simplevalue-template.html`. The name used in the StateVariables section of the symbol definition needs to be used in the symbol template, but does not need to be `MultistateColor`.
 
 	```html
-	<div ng-style="{background: config.BackgroundColor, color: Fill || config.TextColor}">
+	<div ng-style="{background: config.BackgroundColor, color: MultistateColor || config.TextColor}">
     	<div ng-show="config.ShowLabel">{{label}}</div>
     	<div>{{value}}</div>
     	<div ng-show="config.ShowTime">{{time}}</div>

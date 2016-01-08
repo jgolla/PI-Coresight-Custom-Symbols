@@ -13,25 +13,15 @@
 		        ShowTime: false
 		    };
 		},
-	    StateVariables: [ 'Fill', 'Blink' ],
-	    configOptions: function (symbol) {
-	    	var options = [{
+	    StateVariables: [ 'MultistateColor' ],
+	    configOptions: function () {
+	        return [{
 	            title: 'Format Symbol',
-	            mode: 'format' 
+	            mode: 'format'
+	        }, {
+	            title: 'Configure Multistate',
+	            mode: 'multistate'
 	        }];
-
-	        var multistateOption = {};
-	        if (symbol.MSDataSources && symbol.MSDataSources.length > 0) {
-	            multistateOption.title = 'Configure Multistate';
-	            multistateOption.mode = 'multistate';
-	        } else {
-	            multistateOption.title = 'Initialize Multistate';
-	            multistateOption.mode = 'initialize-multistate';
-	            multistateOption.datasource = symbol.DataSources[0];
-	        }
-
-	        options.push(multistateOption);
-	        return options;
 	    },
 	    init: init
 	};
