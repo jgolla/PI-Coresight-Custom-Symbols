@@ -1,9 +1,9 @@
 # Liquid Gauge / d3
 
-The following example is used to create a PI Coresight symbol that uses [d3](http://d3js.org/). The actual implementation of the guage comes from [D3 Liquid Fill Gauge](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6). These instructions build off the [Simple Value Symbol Instructions](SimpleValueSymbol.md), so please review those first.
+The following example is used to create a PI Coresight symbol that uses [d3.js](http://d3js.org/). The actual implementation of the guage comes from [D3 Liquid Fill Gauge](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6). These instructions build off the [Simple Value Symbol Instructions](SimpleValueSymbol.md), so please review those first.
 
-1. Create a new file called sym-liquidgauge.js in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.
-1. Below is the basic skeleton of a new PI Coresight symbol for a liquid guage. It sets up the `typeName`, `datasourceBehavior`, and `getDefaultConfig` definition options and registers them with the PI Coresight application.
+1. Create a new file called `sym-liquidgauge.js` in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.
+1. Below is the basic skeleton of a new PI Coresight symbol for a liquid guage. It sets up the `typeName`, `datasourceBehavior`, and `getDefaultConfig` definition options and registers them with the PI Coresight application. For the `DataShape`, we are using a gauge shape, which will provide us with some additional, gauge specific, properties that value symbol does not have, mainly Indicator.
 
     ```javascript
     (function (CS) {
@@ -32,7 +32,7 @@ The following example is used to create a PI Coresight symbol that uses [d3](htt
 	</div>
     ```
 
-1. Now we need to initialize the guage symbol. We will add an `init` to the defintion object and define the `init` function. The `init` function will have stubs for data updates and resizing events.
+1. Now we need to initialize the guage symbol. We will add an `init` to the defintion object and define the `init` function. The `init` function will have stubs for data updates and resizing events. The resize function is called by the PI Coresight infrastructure anytime the symbol is resized. The resize function is passed the new width and height of the symbol.
 
     ```javascript
 	(function (CS) {
@@ -342,7 +342,7 @@ The following example is used to create a PI Coresight symbol that uses [d3](htt
     }
 	```
 
-1. In the `init` function, we can now begin to define the gauge. The liquid gauge implementation listed above created a gauge based on a HTML id, a default value, and a gauge configuration. To begin with, we will just use the default gauge configuration, `liquidFillGaugeDefaultSettings`. After that, we need to give the `svg` element a unique id and then create the gauge using `loadLiquidFillGauge`.
+1. In the `init` function, we can now begin to define the gauge. The liquid gauge implementation listed above created a gauge based on a HTML id, a default value, and a gauge configuration. To begin with, we will just use the default gauge configuration, `liquidFillGaugeDefaultSettings`. After that, we need to give the `svg` element a unique id and then create the gauge using `loadLiquidFillGauge`. Below we are using JavaScript to create a unique id for the `svg` element and passing that into the `loadLiquidFillGauge` function.
 
 	```javascript
     function init(scope, elem) {
@@ -366,7 +366,7 @@ The following example is used to create a PI Coresight symbol that uses [d3](htt
     }
     ```
 
-1. The next step is to hook the data updates to the guage symbols `update` method. 
+1. The next step is to hook the data updates to the guage symbols `update` method. Here we are using the `Indicator` property on the data that is passed into the `dataUpdate` function. The Indicator property represents the current value as a percentage of Max - Min, between 0 and 100.
 
 	```javascript
     function init(scope, elem) {
@@ -393,7 +393,7 @@ The following example is used to create a PI Coresight symbol that uses [d3](htt
     ```
 
 1. We now have a working guage, but it does not resize properly. To do this, we will fill in the `resize` function and scale the `svg` element to fit the new area.
-1. First update the template to include a soon to be added scale factor.
+1. First update the template to include a, soon to be added, scale factor. Here we are using an [SVG transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) to scale the entire symbol. This is used as part of an AngularJS binding using the ng-attr- syntax.
 
     ```html
     <div id="gaugeContainer">
@@ -401,7 +401,7 @@ The following example is used to create a PI Coresight symbol that uses [d3](htt
 	</div>
     ```
 
-1. The implementation for the scale will be in init function to set the initial scale and then the resize function to update the scale as the size of the symbol changes.
+1. The implementation for the scale will be in init function to set the initial scale and then the resize function to update the scale as the size of the symbol changes. In `init`, we will default to a scale of 1. On every resize, we will recompute the scale, delete the symbol, and they re-add it.
 
 	```javascript
     function init(scope, elem) {
