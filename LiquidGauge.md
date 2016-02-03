@@ -1,9 +1,9 @@
 # Liquid Gauge / d3
 
-The following example is used to create a PI Coresight symbol that uses [d3.js](http://d3js.org/). The actual implementation of the guage comes from [D3 Liquid Fill Gauge](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6). These instructions build off the [Simple Value Symbol Instructions](SimpleValueSymbol.md), so please review those first.
+The following example is used to create a PI Coresight symbol that uses [d3.js](http://d3js.org/). The actual implementation of the gauge comes from [D3 Liquid Fill Gauge](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6). These instructions build off the [Simple Value Symbol Instructions](SimpleValueSymbol.md), so please review those first.
 
 1. Create a new file called `sym-liquidgauge.js` in your PI Coresight installation folder, `INSTALLATION_FOLDER\Scripts\app\editor\symbols\ext`. If the `ext` folder does not exist, create it.
-1. Below is the basic skeleton of a new PI Coresight symbol for a liquid guage. It sets up the `typeName`, `datasourceBehavior`, and `getDefaultConfig` definition options and registers them with the PI Coresight application. For the `DataShape`, we are using a gauge shape, which will provide us with some additional, gauge specific, properties that value symbol does not have, mainly Indicator.
+1. Below is the basic skeleton of a new PI Coresight symbol for a liquid gauge. It sets up the `typeName`, `datasourceBehavior`, and `getDefaultConfig` definition options and registers them with the PI Coresight application. For the `DataShape`, we are using a gauge shape, which will provide us with some additional, gauge specific, properties that value symbol does not have, mainly Indicator.
 
     ```javascript
     (function (CS) {
@@ -32,7 +32,7 @@ The following example is used to create a PI Coresight symbol that uses [d3.js](
 	</div>
     ```
 
-1. Now we need to initialize the guage symbol. We will add an `init` to the defintion object and define the `init` function. The `init` function will have stubs for data updates and resizing events. The resize function is called by the PI Coresight infrastructure anytime the symbol is resized. The resize function is passed the new width and height of the symbol.
+1. Now we need to initialize the gauge symbol. We will add an `init` to the definition object and define the `init` function. The `init` function will have stubs for data updates and resizing events. The resize function is called by the PI Coresight infrastructure anytime the symbol is resized. The resize function is passed the new width and height of the symbol.
 
     ```javascript
 	(function (CS) {
@@ -366,7 +366,7 @@ The following example is used to create a PI Coresight symbol that uses [d3.js](
     }
     ```
 
-1. The next step is to hook the data updates to the guage symbols `update` method. Here we are using the `Indicator` property on the data that is passed into the `dataUpdate` function. The Indicator property represents the current value as a percentage of Max - Min, between 0 and 100.
+1. The next step is to hook the data updates to the gauge symbols `update` method. Here we are using the `Indicator` property on the data that is passed into the `dataUpdate` function. The Indicator property represents the current value as a percentage of Max - Min, between 0 and 100.
 
 	```javascript
     function init(scope, elem) {
@@ -392,7 +392,7 @@ The following example is used to create a PI Coresight symbol that uses [d3.js](
     }
     ```
 
-1. We now have a working guage, but it does not resize properly. To do this, we will fill in the `resize` function and scale the `svg` element to fit the new area.
+1. We now have a working gauge, but it does not resize properly. To do this, we will fill in the `resize` function and scale the `svg` element to fit the new area.
 1. First update the template to include a, soon to be added, scale factor. Here we are using an [SVG transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) to scale the entire symbol. This is used as part of an AngularJS binding using the ng-attr- syntax.
 
     ```html
