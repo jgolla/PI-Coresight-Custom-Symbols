@@ -430,3 +430,35 @@ The following example is used to create a PI Coresight symbol that uses [d3.js](
     	return { dataUpdate: dataUpdate, resize: resize }; 
     }
     ```
+
+1. One thing to notice at this point is, while resizing is working, it will only fill in the data at the next update. This is because when we recreate the gauge, we are initilaizing it with 0 for a value. To fix this, we can cache the last value of the indicator and use that during the resizing process.
+
+    ```javascript
+    function init(scope, elem) {
+        
+        scope.scale = 1;
+        
+        var config = liquidFillGaugeDefaultSettings();
+
+        var svg = elem.find('#gaugeContainer > svg')[0];
+        var id = "liquid_" + Math.random().toString(36).substr(2, 16);
+        svg.id = id;
+        var gauge = loadLiquidFillGauge(id, 0, config);
+
+        var cachedIndicator = 0;
+        function dataUpdate(data) {
+            if (data) {
+                gauge.update(data.Indicator);
+                cachedIndicator = data.Indicator;
+            }
+        }
+
+        function resize(width, height) {
+            scope.scale = Math.min(width / 150, height / 150);
+            d3.select("#" + id).selectAll("*").remove();
+            gauge = loadLiquidFillGauge(id, cachedIndicator, config);
+        }
+
+        return { dataUpdate: dataUpdate, resize: resize }; 
+    }
+    ```
