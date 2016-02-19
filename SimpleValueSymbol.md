@@ -55,7 +55,7 @@
     </div>
     ```
 
-1. Launch [PI Coresight][1] and this time perform a search for sinusoid (**TODO need data item**)
+1. Launch [PI Coresight][1] and this time perform a search for a data item, such as sinusoid
 1. Select the simplevalue symbol icon from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having a default size.
 1. To fix the sizing issue, update the `getDefaultConfig` function's return value to return both `Height` and `Width`. We also need to add an initialization function to the definition object. The `init` function is a function that will be called when the symbol is added to a display.
 
@@ -302,7 +302,5 @@
     	<div ng-show="config.ShowTime">{{time}}</div>
 	</div>
 	```
-
-(**TODO update URL below**) 
 
 [1]:http://pisrv01.pischool.int/Coresight/#/Displays/New/
