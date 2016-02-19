@@ -50,7 +50,7 @@
 1. Before going any further with implementation, let's get the initial presentation layer done. First, we will create an HTML file in the same directory as our JavaScript file and name it `sym-simplevalue-template.html`. Add the following to the HTML file. This is just placeholder text until we write the actual presentation layer code.
 
     ```html
-    <div>
+    <div style="background: red">
         <div>Simple Value</div>
     </div>
     ```
@@ -82,7 +82,7 @@
     ```
 
 1. Retry again in [PI Coresight][1] by adding the new symbol. The symbol can now be selected, moved, and is completely integrated into undo stack.
-1. Now that the infrastructure is in place, it is time to have the symbol do something. For this we will have to expand out the `init` function. We will add a parameter to the function, `scope`. [Scope](https://docs.angularjs.org/guide/scope) is an object borrowed from [AngularJS 1](https://angularjs.org) that allows the implementation and the presentation to comminucate with each other. The `init` funciton will also have a function inside it to handle when the symbol receives new data. Last we will add a return to the `init` function, to let the PI Coresight infrastructure know how to communicate with the symbol.
+1. Now that the infrastructure is in place, it is time to have the symbol do something. For this we will have to expand out the `init` function. We will add a parameter to the function, `scope`. [Scope](https://docs.angularjs.org/guide/scope) is an object borrowed from [AngularJS 1](https://angularjs.org) that allows the implementation and the presentation to communicate with each other. The `init` funciton will also have a function inside it to handle when the symbol receives new data. Last we will add a return to the `init` function, to let the PI Coresight infrastructure know how to communicate with the symbol.
 
     ```javascript
     function init(scope) {
@@ -221,7 +221,7 @@
 
 1. Next we will update the presentation to honor these settings. This is done using another AngularJS directive, [ng-show](https://docs.angularjs.org/api/ng/directive/ngShow). `ng-show` will show the element, in this case a div, if the value it is bound to is true. Otherwise, it will hide the element.
 
-     ```html
+    ```html
     <div ng-style="{background: config.BackgroundColor, color: config.TextColor}">
         <div ng-show="config.ShowLabel">{{label}}</div>
         <div>{{value}}</div>
@@ -305,4 +305,4 @@
 
 (**TODO update URL below**) 
 
-[1]:http://localhost:55950/#/Displays/New/
+[1]:http://pisrv01.pischool.int/Coresight/#/Displays/New/
