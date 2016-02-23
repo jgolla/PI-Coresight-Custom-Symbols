@@ -26,7 +26,7 @@ The following example is used to create a PI Coresight symbol that uses [Highcha
     })(window.Coresight);
     ```
 
-1. The next step is to create the HTML template for this symbol. The chart that we will be using only needs a `div` tag to attach to. So we will create a HTML file in the same directory as our Javascript file and name it `sym-timeserieschart-template.html`. We are setting the height and width of this `div` to take up the full space available.
+1. The next step is to create the HTML template for this symbol. The chart that we will be using only needs a `div` tag to attach to. So we will create a HTML file in the same directory as our JavaScript file and name it `sym-timeserieschart-template.html`. We are setting the height and width of this `div` to take up the full space available.
 
     ```html
     <div id="container" style="width:100%;height:100%"></div>
@@ -224,7 +224,7 @@ The following example is used to create a PI Coresight symbol that uses [Highcha
     }
     ```
 
-1. Lastly, we want to handle resizing the chart appropreatly. To do this, we need to use Highcharts setSize method.
+1. Lastly, we want to handle resizing the chart appropriately. To do this, we need to use Highcharts setSize method.
 
     ```javascript
     function resize(width, height) {
