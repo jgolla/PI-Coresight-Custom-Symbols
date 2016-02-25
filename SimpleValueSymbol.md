@@ -55,9 +55,10 @@
     </div>
     ```
 
+1. At this point, in order for the new symbol to be served up by the PI Coresight web server, you must perform an IIS reset.
 1. Launch [PI Coresight][1] and this time perform a search for a data item, such as sinusoid
-1. Select the simplevalue symbol icon from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having a default size.
-1. To fix the sizing issue, update the `getDefaultConfig` function's return value to return both `Height` and `Width`. We also need to add an initialization function to the definition object. The `init` function is a function that will be called when the symbol is added to a display.
+1. Select the simplevalue symbol icon from the symbol selector menu and drag the data item to the display. You will notice after dropping the symbol it is not really possible to select it. This is due to the symbol not having an `init` function as well as no default size.
+1. To fix the sizing issue, update the `getDefaultConfig` function's return value to return both `Height` and `Width`. Also, we need to add an initialization function to the definition object. The `init` function is a function that will be called when the symbol is added to a display.
 
     ```javascript
     (function (CS) {
@@ -110,18 +111,7 @@
     }
     ```
 
-1. Now to update the presentation HTML file to show these values. In the HTML, we are using AngularJS style binding notation, `{{}}`, to link fields in the HTML that should be updated based on properties added to the scope.  
-
-    ```html
-    <div>
-        <div>Label: {{label}}</div>
-        <div>Value: {{value}}</div>
-        <div>Time: {{time}}</div>
-    </div>
-    ```
-
-1. Retry again in [PI Coresight][1] by adding the new symbol. 
-1. Now that the symbol is starting to come together, it is time to make it look a little nicer by adding some styling to the container div and removing the labels added above.
+1. Now to update the presentation HTML file to show these values. In the HTML, we are using AngularJS style binding notation, `{{}}`, to link fields in the HTML that should be updated based on properties added to the scope. We are also adding a bit of color to the `div` for the background and text color.
 
     ```html
     <div style="background: orange; color: black">
@@ -131,7 +121,8 @@
     </div>
     ```
 
-1. While this is very nice, it would be much better if the user of the symbol could configure the colors shown here. To do this, we need to add symbol configuration options to the symbol definition. First we will add the context menu options to the symbol. This is done by adding a `configOptions` property to the symbol definition object. `configOptions` is a function controlling what configuration options are available for this symbol. It returns an [array](https://developer.mozilla.org/en-US/docs/Glossary/array) of objects controlling configuration. In this instance, we are returning a single object in the array. This object is used to create a context menu for the symbol that will have an entry titled 'Format Symbol'. Selecting this entry from the context menu will open the PI Coresight configuration pane.
+1. Retry again in [PI Coresight][1] by adding the new symbol. 
+1. While this is very nice, it would be much better if the user of the symbol could configure the colors shown here. To do this, we need to add symbol configuration options to the symbol definition. First we will add the context menu options to the symbol. This is done by adding a `configOptions` property to the symbol definition object. `configOptions` is a function controlling what configuration options are available for this symbol. It returns an [array](https://developer.mozilla.org/en-US/docs/Glossary/array) of objects controlling configuration. In this instance, we are returning a single object in the array. This object is used to create a context menu for the symbol that will have an entry titled 'Format Symbol'. The mode used here is used to set the type of the configuration, so it can be shared with similar symbol configurations, i.e. formatting with formatting, multistates with multistates. Selecting this entry from the context menu will open the PI Coresight configuration pane.
 
     ```javascript
     var defintion = {
@@ -303,4 +294,4 @@
 	</div>
 	```
 
-[1]:http://pisrv01.pischool.int/Coresight/#/Displays/New/
+[1]:http://pisrv01/Coresight/#/Displays/New/

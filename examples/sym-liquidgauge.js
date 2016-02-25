@@ -20,8 +20,8 @@
 
     	var config = liquidFillGaugeDefaultSettings();
 
-    	var svg = elem.find('#gaugeContainer > svg')[0];
-        var id = "liquid_" + Math.random().toString(36).substr(2, 16);
+    	var svg = elem.find('svg')[0];
+        var id = 'liquid_' + Math.random().toString(36).substr(2, 16);
         svg.id = id;
         var gauge = loadLiquidFillGauge(id, 0, config);
 
@@ -33,7 +33,7 @@
 
     	function resize(width, height) {
     	    scope.scale = Math.min(width / 150, height / 150);
-            d3.select("#" + id).selectAll("*").remove();
+            d3.select('#' + id).selectAll('*').remove();
             gauge = loadLiquidFillGauge(id, 0, config);
     	}
 

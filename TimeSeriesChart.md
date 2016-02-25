@@ -177,7 +177,7 @@ The following example is used to create a PI Coresight symbol that uses [Highcha
     }
     ```
 
-1. Now we have the initial creation of the chart, we must handle subsequesnt updates. This will happen in data update, when the `chart` variable is already defined. For this, we need to add an else condition to `if(!chart)`. Here we will loop through each entry in the series and update the data if it exist, or add it if it does not.
+1. Now we have the initial creation of the chart, we must handle subsequent updates. This will happen in data update, when the `chart` variable is already defined. For this, we need to add an else condition to `if(!chart)`. Here we will loop through each entry in the series and update the data if it exist, or add it if it does not.
 
     ```javascript
     function dataUpdate(data) {
@@ -234,7 +234,7 @@ The following example is used to create a PI Coresight symbol that uses [Highcha
     }
     ```
 
-1. Below is the full version of the implentation file.
+1. Below is the full version of the implementation file.
 
     ```javascript
     (function (CS) {
