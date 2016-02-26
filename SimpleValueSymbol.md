@@ -9,12 +9,12 @@
     })(window.Coresight);
     ```
     
-1. Begin by creating the symbol definition [Object](https://developer.mozilla.org/en-US/docs/Glossary/Object) that will be used to register the symbol with PI Coresight. Here we use the PI Coresight object passed in to gain access to the symbol catalog. The symbol catalog is the object we use for registering and holding all Coresight symbols. We are creating and empty object and passing that into the register function. Since this is in an IIFE, as soon as the browser executes it, it will run the registration code.
+1. Begin by creating the symbol definition [Object](https://developer.mozilla.org/en-US/docs/Glossary/Object) that will be used to register the symbol with PI Coresight. Here we use the PI Coresight object passed in to gain access to the symbol catalog. The symbol catalog is the object we use for registering and holding all Coresight symbols. We are creating an empty object and passing that into the register function. Since this is in an IIFE, as soon as the browser executes it, it will run the registration code.
 
     ```javascript
     (function (CS) {
-        var defintion = {};
-        CS.symbolCatalog.register(defintion);
+        var definition = {};
+        CS.symbolCatalog.register(definition);
     })(window.Coresight);
     ```
 
@@ -22,11 +22,11 @@
 
     ```javascript
     (function (CS) {
-        var defintion = {
+        var definition = {
             typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single
         };
-        CS.symbolCatalog.register(defintion);
+        CS.symbolCatalog.register(definition);
     })(window.Coresight);
     ```
 
@@ -34,7 +34,7 @@
 
     ```javascript
     (function (CS) {
-        var defintion = {
+        var definition = {
             typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single,
             getDefaultConfig: function() {
@@ -43,7 +43,7 @@
                 };
             }
         };
-        CS.symbolCatalog.register(defintion);
+        CS.symbolCatalog.register(definition);
     })(window.Coresight);
     ```
 
@@ -62,7 +62,7 @@
 
     ```javascript
     (function (CS) {
-        var defintion = {
+        var definition = {
             typeName: 'simplevalue',
             datasourceBehavior: CS.DatasourceBehaviors.Single,
             getDefaultConfig: function() {
@@ -78,7 +78,7 @@
         function init() {
         }
         
-        CS.symbolCatalog.register(defintion);
+        CS.symbolCatalog.register(definition);
     })(window.Coresight);
     ```
 
@@ -125,7 +125,7 @@
 1. While this is very nice, it would be much better if the user of the symbol could configure the colors shown here. To do this, we need to add symbol configuration options to the symbol definition. First we will add the context menu options to the symbol. This is done by adding a `configOptions` property to the symbol definition object. `configOptions` is a function controlling what configuration options are available for this symbol. It returns an [array](https://developer.mozilla.org/en-US/docs/Glossary/array) of objects controlling configuration. In this instance, we are returning a single object in the array. This object is used to create a context menu for the symbol that will have an entry titled 'Format Symbol'. The mode used here is used to set the type of the configuration, so it can be shared with similar symbol configurations, i.e. formatting with formatting, multistates with multistates. Selecting this entry from the context menu will open the PI Coresight configuration pane.
 
     ```javascript
-    var defintion = {
+    var definition = {
         typeName: 'simplevalue',
         datasourceBehavior: CS.DatasourceBehaviors.Single,
         getDefaultConfig: function() {
@@ -148,7 +148,7 @@
 1. Next we need to add the default values for the options we wish to configure. This is done in `getDefaultConfig`. Here we are adding both a `BackgroundColor` and `TextColor` to the object returned by `getDefaultConfig`.
 
     ```javascript
-    var defintion = {
+    var definition = {
         typeName: 'simplevalue',
         datasourceBehavior: CS.DatasourceBehaviors.Single,
         getDefaultConfig: function() {
@@ -246,7 +246,7 @@
 1. Now that basic value symbol is complete, let's move on to allowing the user to make it configured with a multistate. To do this, we must add the `StateVariables` to the symbol's definition object. `StateVariables` is an array of [strings](https://developer.mozilla.org/en-US/docs/Glossary/String). The variable listed will be added to the symbol’s scope and available for data binding in HTML.
 
     ```javascript
-    var defintion = {
+    var definition = {
         typeName: 'simplevalue',
         datasourceBehavior: CS.DatasourceBehaviors.Single,
         getDefaultConfig: function() {

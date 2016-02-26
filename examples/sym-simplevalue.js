@@ -1,5 +1,5 @@
 (function (CS) {
-	var defintion = {
+	var definition = {
 	    typeName: 'simplevalue',
 	    datasourceBehavior: CS.DatasourceBehaviors.Single,
 	    getDefaultConfig: function() {
@@ -39,5 +39,5 @@
 	    return { dataUpdate: onUpdate };
 	}	
 
-    CS.symbolCatalog.register(defintion);
+    CS.symbolCatalog.register(definition);
 })(window.Coresight);
