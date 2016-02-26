@@ -34,25 +34,15 @@
                 });
                 series.push(t);
             });
+
+            return series;
         }
 
         var chart;
         function dataUpdate(data) {
             if(data) {
 
-                var series = [];
-                data.Data.forEach(function(item) {
-                    var t = {};
-                    t.name = item.Label;
-                    t.data = item.Values.map(function(obj) {
-                        var date = new Date(0);
-                        date.setUTCSeconds(obj.Time);
-                        return [Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(),  date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()), Number(obj.Value)];
-                    });
-
-                    series.push(t);
-                });
-
+                var series = convertToChartData(data);
                 if(!chart) {
                     chart = new Highcharts.Chart({
                         chart: {

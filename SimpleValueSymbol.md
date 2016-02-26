@@ -47,7 +47,7 @@
     })(window.Coresight);
     ```
 
-1. Before going any further with implementation, let's get the initial presentation layer done. First, we will create an HTML file in the same directory as our JavaScript file and name it `sym-simplevalue-template.html`. Add the following to the HTML file. This is just placeholder text until we write the actual presentation layer code.
+1. Before going any further with implementation, let's get the initial presentation layer done. First, we will create an HTML file in the same directory as our JavaScript file and name it `sym-simplevalue-template.html`. The naming convention here is sym-SYMBOL_TYPE_NAME-template.html. This is the default name that the symbol framework will look for if the template is not specified in the symbol definition. Add the following to the HTML file. This is just placeholder text until we write the actual presentation layer code.
 
     ```html
     <div style="background: red">
@@ -170,7 +170,7 @@
     };
     ```
 
-1. Now that we have it defined in the implementation, we need to create the configuration HTML file. Create a file named `sym-simplevalue-config.html` in the same directory as the implementation and presentation files. Like the presentation layer, the configuration layer is basic HTML. In the example below, we define two sections, Text Color and Background Color, and add a color picker custom control, `format-color-picker`, under each section. `format-color-picker` is an AngularJS [directive](https://docs.angularjs.org/guide/directive) to add the ability to use the PI Coresight color picker to a custom symbol. `format-color-picker` has two custom attributes that are used to link it back to the underlying symbol, `property` and `config`. `property` points to a property on the passed in config object. `config` is the config object of the symbol.
+1. Now that we have it defined in the implementation, we need to create the configuration HTML file. Create a file named `sym-simplevalue-config.html` in the same directory as the implementation and presentation files. The naming convention here is sym-SYMBOL_TYPE_NAME-config.html. This is the default name that the symbol framework will look for if the configuration template is not specified in the symbol definition. Like the presentation layer, the configuration layer is basic HTML. In the example below, we define two sections, Text Color and Background Color, and add a color picker custom control, `format-color-picker`, under each section. `format-color-picker` is an AngularJS [directive](https://docs.angularjs.org/guide/directive) to add the ability to use the PI Coresight color picker to a custom symbol. `format-color-picker` has two custom attributes that are used to link it back to the underlying symbol, `property` and `config`. `property` points to a property on the passed in config object. `config` is the config object of the symbol.
 
     ```html
     <div class="c-side-pane t-toolbar">
