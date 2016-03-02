@@ -5,9 +5,9 @@ This repository is set up to help you learn how to add a custom symbol, created 
 ## Creating new symbols
 Each section below is used to walkthrough the creation of a specific custom symbol. It is recommended to go through the simple value symbol instructions first. Each set of instructions is meant to be run as a copy and paste exercise. 
 
-* [Simple Value Symbol Instructions](SimpleValueSymbol.md)
-* [TimeSeries Chart Instructions](TimeSeriesChart.md)
-* [Liquid Gauge (d3) Instructions](LiquidGauge.md)
+* [Simple Value Symbol Instructions](/tutorials/simplevalue/README.md)
+* [TimeSeries Chart Instructions](/tutorials/timeserieschart/README.md)
+* [Liquid Gauge (d3) Instructions](/tutorials/liquidgauge/README.md)
 
 ## Licensing
 Copyright 2016 OSIsoft, LLC.
